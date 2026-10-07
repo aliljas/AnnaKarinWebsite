@@ -1,4 +1,5 @@
 ---
+import SmartLink from './SmartLink.astro';
 import { ways, isExternal } from '../content/site';
 ---
 
@@ -9,29 +10,20 @@ import { ways, isExternal } from '../content/site';
     <ul class="card-grid">
       {
         ways.items.map((item, index) => (
-          <li class="card ways__card" data-reveal style={`--reveal-delay: ${index * 110}ms`}>
+          <li class="card ways__card" data-reveal style={`--stagger: ${index}`}>
             <h3>{item.title}</h3>
             <p>{item.body}</p>
             <ul class="ways__links">
-              {item.links.map((link) => {
-                const external = isExternal(link.href);
-                return (
-                  <li>
-                    <a
-                      class="ways__link"
-                      href={link.href}
-                      target={external ? '_blank' : undefined}
-                      rel={external ? 'noopener' : undefined}
-                    >
-                      <span class="ways__label">{link.label}</span>
-                      <span class="ways__arrow" aria-hidden="true">
-                        {external ? '↗' : '→'}
-                      </span>
-                      {external && <span class="visually-hidden">(opens in a new tab)</span>}
-                    </a>
-                  </li>
-                );
-              })}
+              {item.links.map((link) => (
+                <li>
+                  <SmartLink class="ways__link" href={link.href}>
+                    <span class="ways__label">{link.label}</span>
+                    <span class="ways__arrow" aria-hidden="true">
+                      {isExternal(link.href) ? '↗' : '→'}
+                    </span>
+                  </SmartLink>
+                </li>
+              ))}
             </ul>
           </li>
         ))

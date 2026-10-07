@@ -1,5 +1,6 @@
 ---
-import { connect, isExternal } from '../content/site';
+import SmartLink from './SmartLink.astro';
+import { connect } from '../content/site';
 
 const buttons = [
   { ...connect.linkedin, variant: 'solid' },
@@ -14,20 +15,11 @@ const buttons = [
 
     <div class="connect__buttons">
       {
-        buttons.map((button) => {
-          const external = isExternal(button.href);
-          return (
-            <a
-              class={`button button--${button.variant}`}
-              href={button.href}
-              target={external ? '_blank' : undefined}
-              rel={external ? 'noopener' : undefined}
-            >
-              {button.label}
-              {external && <span class="visually-hidden">(opens in a new tab)</span>}
-            </a>
-          );
-        })
+        buttons.map((button) => (
+          <SmartLink class={`button button--${button.variant}`} href={button.href}>
+            {button.label}
+          </SmartLink>
+        ))
       }
     </div>
   </div>

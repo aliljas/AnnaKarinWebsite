@@ -24,11 +24,12 @@ export const site = {
   title: 'Anna-Karin Liljas | Executive Coach & Consultant | Connect People Development',
   description:
     'Executive coaching, team development and leadership support for leaders, teams and individuals. Based in the US, working globally.',
+  /** 1200×630 share card (LinkedIn, Slack, X…). Rebuild it from scripts/og-image.html. */
   ogImage: {
-    src: '/photos/anna-karin-portrait.jpg',
-    width: 600,
-    height: 750,
-    alt: 'Anna-Karin Liljas, smiling, mid-conversation at a meeting table.',
+    src: '/og-image.jpg',
+    width: 1200,
+    height: 630,
+    alt: 'Connect People Development: “Success for me is if I can help you and your team succeed!” Anna-Karin Liljas, Certified Executive Coach & Consultant, beside a photo of her coaching a client.',
   },
   logo: {
     src: '/brand/connect-logo.svg',
@@ -46,8 +47,8 @@ export const nav: Link[] = [
 
 export const hero = {
   id: 'welcome',
-  name: 'Anna-Karin Liljas',
-  title: 'Certified Executive Coach & Consultant',
+  name: site.person,
+  title: site.role,
   headline: 'Success for me is if I can help you and your team succeed!',
   /** The first "Why work with me" paragraph, which opens the page beside the photo. */
   intro:
@@ -154,7 +155,15 @@ export const testimonials = {
 };
 
 export const footer = {
-  legalName: 'Connect People Development LLC',
+  legalName: site.legalName,
   // TODO: business address (registered agent or PO box, not a home address). Renders once set.
   address: null as string | null,
+};
+
+/** The "page not found" page. Not in content.md: plain UI wording, for her to approve. */
+export const notFound = {
+  label: 'Page not found',
+  heading: "This page doesn't exist",
+  line: 'The link may be out of date. Everything is on the home page.',
+  button: { label: 'Go to the home page', href: '/' } as Link,
 };

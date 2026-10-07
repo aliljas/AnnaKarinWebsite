@@ -142,6 +142,9 @@ a:hover { color: var(--ink); }
 }
 @media (min-width: 60rem) {
   .card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  /* Stagger only when the cards arrive together, side by side. Stacked,
+     each card already reveals on its own as it scrolls in. */
+  .card-grid > [data-reveal] { --reveal-delay: calc(var(--stagger, 0) * 110ms); }
 }
 
 /* ---------- buttons ----------------------------------------- */

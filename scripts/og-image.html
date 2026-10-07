@@ -1,0 +1,79 @@
+<!doctype html>
+<!--
+  Source for public/og-image.jpg — the 1200×630 card shown when the site is
+  shared on LinkedIn, Slack, X, etc. Regenerate with: node scripts/og-image.mjs
+  (paths are relative so it renders straight from the repo).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style>
+  @font-face {
+    font-family: 'Cormorant Garamond';
+    font-weight: 600;
+    src: url('../node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-600-normal.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Jost';
+    font-weight: 500;
+    src: url('../node_modules/@fontsource/jost/files/jost-latin-500-normal.woff2') format('woff2');
+  }
+
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+
+  body {
+    display: grid;
+    grid-template-columns: 640px 560px;
+    background: #fbf8f3;
+    color: #2f3437;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    padding: 56px 56px 60px 72px;
+  }
+
+  .logo { height: 84px; width: auto; align-self: flex-start; margin-left: -8px; }
+
+  .motto {
+    margin-top: auto;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 52px;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+  }
+
+  .byline {
+    margin-top: 40px;
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1.7;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #4a6a73;
+  }
+  .byline::before {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 1.5px;
+    margin-bottom: 18px;
+    background: #8fa9af;
+  }
+
+  .photo { width: 560px; height: 630px; object-fit: cover; object-position: 38% 40%; }
+</style>
+</head>
+<body>
+  <div class="text">
+    <img class="logo" src="../public/brand/connect-logo.svg" alt="" />
+    <p class="motto">Success for me is if I can help you and your team succeed!</p>
+    <p class="byline">Anna-Karin Liljas<br />Certified Executive Coach &amp; Consultant</p>
+  </div>
+  <img class="photo" src="../src/assets/photos/anna-karin-coaching.jpg" alt="" />
+</body>
+</html>

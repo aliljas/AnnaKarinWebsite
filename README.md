@@ -22,6 +22,7 @@ content.md                  ← the client's final copy (source of truth for wor
 src/
   content/site.ts           ← ALL copy, links, the testimonials flag, and every open TODO
   pages/index.astro         ← the single page, sections in order
+  pages/404.astro           ← "page not found" (noindex)
   layouts/BaseLayout.astro  ← <head>, SEO / Open Graph / Twitter tags, fonts, scroll-in script
   styles/global.css         ← design tokens (palette, type, spacing) + shared primitives
   components/
@@ -34,10 +35,13 @@ src/
     Testimonials.astro      ← built, hidden behind SHOW_TESTIMONIALS
     Connect.astro           ← #connect — LinkedIn + email
     Footer.astro
+    SmartLink.astro         ← every link; external ones open in a new tab with rel="noopener"
   assets/photos/            ← hero photo (Astro serves it as resized WebP)
 public/
   brand/                    ← logo, reversed logo, favicon set
-  photos/                   ← portrait, used as the social share (Open Graph) image
+  og-image.jpg              ← 1200×630 social share card (see below)
+  robots.txt, sitemap.xml
+  photos/                   ← spare portrait (not used on the page)
 ```
 
 To change wording or a link, edit `src/content/site.ts` — no component needs touching.
@@ -57,3 +61,12 @@ Add real, approved quotes to `testimonials.items` in `src/content/site.ts`, then
 ## Open before launch
 
 Search the code for `TODO:` — each one lives in `src/content/site.ts`.
+
+## Social share image
+
+`public/og-image.jpg` (1200×630) is what LinkedIn, Slack and X show when the link is shared. It is
+rendered from `scripts/og-image.html` — after changing the motto, her title or the photo, run:
+
+```bash
+node scripts/og-image.mjs   # needs Edge or Chrome installed (or set BROWSER=/path/to/browser)
+```

@@ -9,6 +9,14 @@ import '@fontsource/jost/500.css';
 import '../styles/global.css';
 import { site } from '../content/site';
 
+interface Props {
+  /** Overrides the site title (e.g. the 404 page). */
+  title?: string;
+  /** Keeps a page out of search results (e.g. the 404 page). */
+  noindex?: boolean;
+}
+
+const { title = site.title, noindex = false } = Astro.props;
 const canonical = site.url;
 const ogImage = new URL(site.ogImage.src, site.url).href;
 ---
@@ -18,9 +26,10 @@ const ogImage = new URL(site.ogImage.src, site.url).href;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{site.title}</title>
+    <title>{title}</title>
     <meta name="description" content={site.description} />
-    <link rel="canonical" href={canonical} />    <meta name="author" content={site.person} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    <meta name="author" content={site.person} />
     <meta name="theme-color" content="#FBF8F3" />
     <meta name="generator" content={Astro.generator} />
 
@@ -40,8 +49,8 @@ const ogImage = new URL(site.ogImage.src, site.url).href;
     <meta property="og:image:height" content={String(site.ogImage.height)} />
     <meta property="og:image:alt" content={site.ogImage.alt} />
 
-    <!-- Twitter / X: the share image is a portrait, so the compact card fits it best. -->
-    <meta name="twitter:card" content="summary" />
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={site.title} />
     <meta name="twitter:description" content={site.description} />
     <meta name="twitter:image" content={ogImage} />

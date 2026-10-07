@@ -55,12 +55,14 @@ Feel: thin `--mist` rules as dividers, generous line-height (1.7), body max-widt
 - `public/brand/connect-logo-reversed.svg` – for dark backgrounds
 - `public/brand/favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`
 - `src/assets/photos/anna-karin-coaching.jpg` – hero photo, 1280×854. Lives in `src/assets/` so Astro's `<Image>` serves resized WebP; show it at most ~640px wide (not sharp enough for full width).
-- `public/photos/anna-karin-portrait.jpg` – 600×750 crop, the Open Graph image (needs a fixed public URL)
+- `public/og-image.jpg` – 1200×630 social share card (Open Graph / Twitter). Source: `scripts/og-image.html`; regenerate with `node scripts/og-image.mjs` after changing the motto, name or photo.
+- `public/photos/anna-karin-portrait.jpg` – 600×750 crop, spare (no longer used on the page)
 
 ## SEO
 - `<title>`: Anna-Karin Liljas | Executive Coach & Consultant | Connect People Development
 - Meta description: Executive coaching, team development and leadership support for leaders, teams and individuals. Based in the US, working globally.
-- Open Graph + Twitter card tags, canonical `https://connectpeopledev.com/`, favicon set.
+- Open Graph + Twitter card tags (`summary_large_image`), canonical `https://connectpeopledev.com/`, favicon set.
+- `public/robots.txt` + `public/sitemap.xml` (one URL); `src/pages/404.astro` is `noindex`.
 
 ## Placeholders still open
 Mark each with `TODO:` in code so they're easy to find:

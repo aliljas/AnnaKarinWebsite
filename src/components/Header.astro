@@ -1,10 +1,17 @@
 ---
 import { nav, site } from '../content/site';
+
+interface Props {
+  /** '/' on pages other than the home page, so the section anchors resolve there. */
+  base?: string;
+}
+
+const { base = '' } = Astro.props;
 ---
 
 <header class="header" data-header>
   <div class="header__inner container">
-    <a class="header__logo" href="#welcome">
+    <a class="header__logo" href={`${base}#welcome`}>
       <img
         src={site.logo.src}
         width={site.logo.width}
@@ -29,7 +36,7 @@ import { nav, site } from '../content/site';
         {
           nav.map((item) => (
             <li>
-              <a class="nav__link" href={item.href}>
+              <a class="nav__link" href={`${base}${item.href}`}>
                 {item.label}
               </a>
             </li>
@@ -96,11 +103,20 @@ import { nav, site } from '../content/site';
 
   .nav__toggle { display: none; }
 
-  /* ---------- mobile ---------- */
+  /* ---------- mobile ----------
+     The collapsible menu only exists when JS runs (`.js` is set inline in
+     <head>). Without JS the links simply stay visible and wrap. */
   @media (max-width: 47.99rem) {
     .header__logo img { height: 40px; }
 
-    .nav__toggle {
+    .nav__list {
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      column-gap: 1.1rem;
+      row-gap: 0;
+    }
+
+    :global(.js) .nav__toggle {
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
@@ -131,7 +147,7 @@ import { nav, site } from '../content/site';
       transform: translateY(-3px) rotate(-45deg);
     }
 
-    .nav__list {
+    :global(.js) .nav__list {
       position: absolute;
       top: 100%;
       left: 0;
@@ -144,9 +160,9 @@ import { nav, site } from '../content/site';
       background: var(--cream);
       box-shadow: 0 1px 0 var(--mist-soft);
     }
-    .nav__list.is-open { display: flex; }
-    .nav__list li + li { border-top: 1px solid var(--mist-soft); }
-    .nav__link { display: block; padding-block: 1rem; }
+    :global(.js) .nav__list.is-open { display: flex; }
+    :global(.js) .nav__list li + li { border-top: 1px solid var(--mist-soft); }
+    :global(.js) .nav__link { display: block; padding-block: 1rem; }
     .nav__link::after { display: none; }
   }
 </style>
@@ -177,6 +193,11 @@ import { nav, site } from '../content/site';
         setOpen(false);
         toggle.focus();
       }
+    });
+
+    // Rotating a tablet or widening the window hides the toggle: close the menu with it.
+    window.matchMedia('(min-width: 48rem)').addEventListener('change', (event) => {
+      if (event.matches) setOpen(false);
     });
   }
 </script>

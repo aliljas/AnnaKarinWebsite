@@ -14,7 +14,7 @@ import { testimonials } from '../content/site';
 
         <ul class="card-grid">
           {testimonials.items.map((item, index) => (
-            <li class="card" data-reveal style={`--reveal-delay: ${index * 110}ms`}>
+            <li class="card" data-reveal style={`--stagger: ${index}`}>
               <figure class="testimonial">
                 <blockquote class="testimonial__quote">
                   <p>{item.quote}</p>

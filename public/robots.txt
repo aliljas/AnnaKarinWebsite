@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://connectpeopledev.com/sitemap.xml

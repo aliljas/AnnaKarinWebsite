@@ -1,0 +1,19 @@
+---
+/* The one place the external-link rule lives: anything starting with http(s)
+   opens in a new tab with rel="noopener" and says so to screen readers. */
+import type { HTMLAttributes } from 'astro/types';
+import { isExternal } from '../content/site';
+
+type Props = HTMLAttributes<'a'> & { href: string };
+
+// `rest` carries the caller's class and scoped-style attribute through.
+const { href, ...rest } = Astro.props;
+const external = isExternal(href);
+---
+
+<a
+  {...rest}
+  href={href}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener' : undefined}
+><slot />{external && <span class="visually-hidden"> (opens in a new tab)</span>}</a>

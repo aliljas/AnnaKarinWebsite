@@ -12,7 +12,11 @@ const year = new Date().getFullYear();
     <div class="footer__text">
       <p class="footer__name">{footer.legalName}</p>
       {footer.address && <p>{footer.address}</p>}
-      <p class="footer__copy">© {year} {footer.legalName}</p>
+      {/* Build year as the fallback; the browser corrects it so it never goes stale. */}
+      <p class="footer__copy">© <span data-year>{year}</span> {footer.legalName}</p>
+      <script is:inline>
+        document.querySelectorAll('[data-year]').forEach((el) => (el.textContent = new Date().getFullYear()));
+      </script>
     </div>
   </div>
 </footer>
