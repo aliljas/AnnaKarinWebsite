@@ -1,0 +1,75 @@
+---
+import { ways, isExternal } from '../content/site';
+---
+
+<section class="section" id={ways.id} aria-labelledby="ways-heading">
+  <div class="container">
+    <h2 class="section__heading" id="ways-heading" data-reveal>{ways.heading}</h2>
+
+    <ul class="card-grid">
+      {
+        ways.items.map((item, index) => (
+          <li class="card ways__card" data-reveal style={`--reveal-delay: ${index * 110}ms`}>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+            <ul class="ways__links">
+              {item.links.map((link) => {
+                const external = isExternal(link.href);
+                return (
+                  <li>
+                    <a
+                      class="ways__link"
+                      href={link.href}
+                      target={external ? '_blank' : undefined}
+                      rel={external ? 'noopener' : undefined}
+                    >
+                      <span class="ways__label">{link.label}</span>
+                      <span class="ways__arrow" aria-hidden="true">
+                        {external ? '↗' : '→'}
+                      </span>
+                      {external && <span class="visually-hidden">(opens in a new tab)</span>}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .ways__card h3 { font-size: clamp(1.4rem, 1.3rem + 0.4vw, 1.6rem); }
+
+  /* Links sit on a shared baseline at the foot of each card. */
+  .ways__links {
+    display: grid;
+    gap: 0.55rem;
+    margin-top: auto;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--mist-soft);
+  }
+
+  .ways__card p { margin-bottom: 0.5rem; }
+
+  .ways__link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.45em;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .ways__label {
+    text-decoration: underline;
+    text-decoration-color: var(--mist);
+  }
+  .ways__link:hover .ways__label { text-decoration-color: currentColor; }
+
+  .ways__arrow {
+    font-size: 0.9em;
+    transition: transform 0.25s var(--ease);
+  }
+  .ways__link:hover .ways__arrow { transform: translateX(2px); }
+</style>

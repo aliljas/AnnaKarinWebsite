@@ -1,0 +1,30 @@
+---
+import { why } from '../content/site';
+---
+
+{/* Picks up where the hero's opening paragraph leaves off. */}
+<section class="section section--ruled" aria-labelledby="why-heading">
+  <div class="container">
+    <div class="why" data-reveal>
+      <h2 id="why-heading">{why.heading}</h2>
+      <div class="why__text">
+        {why.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .why {
+    display: grid;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .why__text { max-width: var(--measure); }
+  .why__text p + p { margin-top: 1.15em; }
+
+  @media (min-width: 56rem) {
+    .why { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 4rem; }
+  }
+</style>

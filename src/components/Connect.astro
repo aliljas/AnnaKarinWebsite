@@ -1,0 +1,61 @@
+---
+import { connect, isExternal } from '../content/site';
+
+const buttons = [
+  { ...connect.linkedin, variant: 'solid' },
+  { ...connect.email, variant: 'outline' },
+];
+---
+
+<section class="section section--sand connect" id={connect.id} aria-labelledby="connect-heading">
+  <div class="container connect__inner" data-reveal>
+    <h2 id="connect-heading">{connect.heading}</h2>
+    <p class="connect__line">{connect.line}</p>
+
+    <div class="connect__buttons">
+      {
+        buttons.map((button) => {
+          const external = isExternal(button.href);
+          return (
+            <a
+              class={`button button--${button.variant}`}
+              href={button.href}
+              target={external ? '_blank' : undefined}
+              rel={external ? 'noopener' : undefined}
+            >
+              {button.label}
+              {external && <span class="visually-hidden">(opens in a new tab)</span>}
+            </a>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .connect__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .connect__line {
+    max-width: 34ch;
+    margin-top: 1.25rem;
+    font-size: clamp(1.1rem, 1rem + 0.4vw, 1.25rem);
+  }
+
+  .connect__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: clamp(2rem, 4vw, 2.75rem);
+  }
+
+  @media (max-width: 30rem) {
+    .connect__buttons { flex-direction: column; align-self: stretch; }
+  }
+</style>

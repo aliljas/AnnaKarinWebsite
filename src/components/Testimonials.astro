@@ -1,0 +1,51 @@
+---
+/* Rendered only when SHOW_TESTIMONIALS is true in src/content/site.ts
+   AND there is at least one real quote — no placeholder ever ships. */
+import { testimonials } from '../content/site';
+---
+
+{
+  testimonials.items.length > 0 && (
+    <section class="section section--ruled" aria-labelledby="testimonials-heading">
+      <div class="container">
+        <h2 class="section__heading" id="testimonials-heading" data-reveal>
+          {testimonials.heading}
+        </h2>
+
+        <ul class="card-grid">
+          {testimonials.items.map((item, index) => (
+            <li class="card" data-reveal style={`--reveal-delay: ${index * 110}ms`}>
+              <figure class="testimonial">
+                <blockquote class="testimonial__quote">
+                  <p>{item.quote}</p>
+                </blockquote>
+                <figcaption class="testimonial__by">
+                  <span class="testimonial__name">{item.name}</span>
+                  <span class="caps">{item.role}</span>
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .testimonial { display: flex; flex-direction: column; gap: 1.5rem; height: 100%; }
+  .testimonial__quote {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.35rem;
+    line-height: 1.4;
+  }
+  .testimonial__by {
+    display: grid;
+    gap: 0.2rem;
+    margin-top: auto;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--mist-soft);
+  }
+  .testimonial__name { font-weight: 500; }
+</style>

@@ -1,0 +1,27 @@
+---
+import { development } from '../content/site';
+---
+
+{/* Three audiences, not three steps — so the cards are named, never numbered. */}
+<section class="section section--ruled" id={development.id} aria-labelledby="development-heading">
+  <div class="container">
+    <h2 class="section__heading development__heading" id="development-heading" data-reveal>
+      {development.heading}
+    </h2>
+
+    <ul class="card-grid">
+      {
+        development.offerings.map((offering, index) => (
+          <li class="card" data-reveal style={`--reveal-delay: ${index * 110}ms`}>
+            <h3>{offering.title}</h3>
+            <p>{offering.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .development__heading { max-width: 18ch; }
+</style>

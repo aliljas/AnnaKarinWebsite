@@ -1,0 +1,58 @@
+---
+import { commitment } from '../content/site';
+
+const [lead, close] = commitment.quote;
+---
+
+<section class="section section--sand commitment" aria-labelledby="commitment-heading">
+  <div class="container commitment__inner" data-reveal>
+    <h2 class="caps commitment__label" id="commitment-heading">{commitment.heading}</h2>
+    <blockquote class="commitment__quote">
+      <p>{lead} <span class="commitment__close">{close}</span></p>
+    </blockquote>
+  </div>
+</section>
+
+<style>
+  .commitment__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* The heading labels the quote rather than competing with it. */
+  .commitment__label {
+    font-family: var(--font-body);
+    font-size: var(--text-caps);
+    font-weight: 500;
+    line-height: 1.7;
+    letter-spacing: 0.2em;
+  }
+
+  .commitment__label::after {
+    content: '';
+    display: block;
+    width: 3rem;
+    height: 1px;
+    margin: 1.4rem auto 0;
+    background: var(--mist);
+  }
+
+  .commitment__quote {
+    max-width: 30ch;
+    margin-top: clamp(1.5rem, 3vw, 2.25rem);
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.65rem, 1.25rem + 1.7vw, 2.5rem);
+    line-height: 1.32;
+    color: var(--ink);
+  }
+
+  /* The motto, restated — it ends the band on its own line. */
+  .commitment__close {
+    display: block;
+    margin-top: 0.55em;
+    font-weight: 600;
+  }
+</style>

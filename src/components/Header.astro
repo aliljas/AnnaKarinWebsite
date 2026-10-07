@@ -1,0 +1,182 @@
+---
+import { nav, site } from '../content/site';
+---
+
+<header class="header" data-header>
+  <div class="header__inner container">
+    <a class="header__logo" href="#welcome">
+      <img
+        src={site.logo.src}
+        width={site.logo.width}
+        height={site.logo.height}
+        alt={site.logo.alt}
+      />
+    </a>
+
+    <nav class="nav" aria-label="Main">
+      <button
+        class="nav__toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="nav-list"
+        data-nav-toggle
+      >
+        <span class="nav__bars" aria-hidden="true"><span></span><span></span></span>
+        Menu
+      </button>
+
+      <ul class="nav__list" id="nav-list" data-nav-list>
+        {
+          nav.map((item) => (
+            <li>
+              <a class="nav__link" href={item.href}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--cream);
+    box-shadow: 0 1px 0 transparent;
+    transition: box-shadow 0.3s var(--ease);
+  }
+  .header.is-scrolled { box-shadow: 0 1px 0 var(--mist-soft); }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: var(--header-h);
+  }
+
+  .header__logo { display: block; flex: none; }
+  .header__logo img { height: 48px; width: auto; }
+
+  /* ---------- desktop ---------- */
+  .nav__list {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.5rem, 3vw, 2.75rem);
+  }
+
+  .nav__link {
+    position: relative;
+    display: inline-block;
+    padding-block: 0.35rem;
+    font-size: var(--text-caps);
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .nav__link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0.2em; /* trailing letter-spacing */
+    bottom: 0;
+    height: 1px;
+    background: var(--mist);
+    transform: scaleX(0);
+    transition: transform 0.3s var(--ease);
+  }
+  .nav__link:hover { color: var(--slate); }
+  .nav__link:hover::after { transform: scaleX(1); }
+
+  .nav__toggle { display: none; }
+
+  /* ---------- mobile ---------- */
+  @media (max-width: 47.99rem) {
+    .header__logo img { height: 40px; }
+
+    .nav__toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      min-height: 2.75rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--slate);
+      border-radius: 2px;
+      background: transparent;
+      color: var(--slate);
+      font-size: var(--text-caps);
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .nav__bars { display: grid; gap: 5px; width: 16px; }
+    .nav__bars span {
+      display: block;
+      height: 1px;
+      background: currentColor;
+      transition: transform 0.25s var(--ease);
+    }
+    .nav__toggle[aria-expanded='true'] .nav__bars span:first-child {
+      transform: translateY(3px) rotate(45deg);
+    }
+    .nav__toggle[aria-expanded='true'] .nav__bars span:last-child {
+      transform: translateY(-3px) rotate(-45deg);
+    }
+
+    .nav__list {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 0.5rem var(--gutter) 1.25rem;
+      background: var(--cream);
+      box-shadow: 0 1px 0 var(--mist-soft);
+    }
+    .nav__list.is-open { display: flex; }
+    .nav__list li + li { border-top: 1px solid var(--mist-soft); }
+    .nav__link { display: block; padding-block: 1rem; }
+    .nav__link::after { display: none; }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+  const list = document.querySelector<HTMLElement>('[data-nav-list]');
+
+  if (header) {
+    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  if (toggle && list) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      list.classList.toggle('is-open', open);
+    };
+
+    toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+    list.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+  }
+</script>
