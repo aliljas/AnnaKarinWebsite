@@ -156,8 +156,6 @@ export const testimonials = {
 
 export const footer = {
   legalName: site.legalName,
-  // TODO: business address (registered agent or PO box, not a home address). Renders once set.
-  address: null as string | null,
 };
 
 /** The "page not found" page. Not in content.md: plain UI wording, for her to approve. */

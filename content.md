@@ -58,5 +58,4 @@ I offer direct engagements tailored to your needs, including one-to-one leadersh
 
 ## Footer
 Connect People Development LLC
-TODO: business address
 © {current year} Connect People Development LLC

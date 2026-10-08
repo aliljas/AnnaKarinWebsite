@@ -16,7 +16,7 @@ A one-page, scrolling marketing site for **Anna-Karin Liljas**, Certified Execut
 - Every external link opens in a new tab with `rel="noopener"`.
 - Accessible: semantic landmarks, one `<h1>`, alt text, visible focus states, WCAG AA contrast.
 - Mobile-first and fully responsive.
-- No cookie banner, no trackers, no heavy JS. Astro components + CSS; a few lines of vanilla JS for the mobile menu and scroll-in effect are fine.
+- No cookie banner, no trackers, no heavy JS. Exception: Cloudflare Web Analytics (cookie-free), switched on in the Cloudflare Pages dashboard — no snippet in the code. Astro components + CSS; a few lines of vanilla JS for the mobile menu and scroll-in effect are fine.
 
 ## Layout (top to bottom)
 1. **Header** – `public/brand/connect-logo.svg` on the left (height ~44–48px), nav on the right.
@@ -26,7 +26,7 @@ A one-page, scrolling marketing site for **Anna-Karin Liljas**, Certified Execut
 5. **My commitment** – a short, centered pull-quote band (sand background) ending with the motto.
 6. **Ways to work with me** – three cards, each with its own link(s): red10, Time to Think, Connect People Development (direct).
 7. **Connect** (`#connect`) – closing line, then LinkedIn and email buttons.
-8. **Footer** – small logo, "Connect People Development LLC", address placeholder, © year.
+8. **Footer** – small logo, "Connect People Development LLC", © year. No address (decided October 2026: not legally needed; red10's would imply the companies are one).
 
 A **testimonials** component should exist but be hidden behind a flag (`SHOW_TESTIMONIALS = false`) until she has real quotes.
 
@@ -66,7 +66,7 @@ Feel: thin `--mist` rules as dividers, generous line-height (1.7), body max-widt
 
 ## Placeholders still open
 Mark each with `TODO:` in code so they're easy to find:
-- Business address for the footer (use a registered-agent or PO box, not a home address)
+- ~~Business address~~ — decided: left off the site
 - ~~Final email~~ — decided: keep `Anna-Karin.Liljas@red10dev.com` (no `@connectpeopledev.com` switch planned)
 - Link for "Connect People Development LLC" in Ways to Work With Me → point to `#connect` for now
 
